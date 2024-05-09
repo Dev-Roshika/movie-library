@@ -3,6 +3,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Header */
+
 .topnav {
   overflow: hidden;
   background-color: #0f0f0f;
@@ -118,7 +120,7 @@ body {
   }
 }
 
-/* //////// */
+/* Main Visual */
 
 .mySlides {
   display: none;
@@ -180,3 +182,44 @@ body {
   to {opacity: 1}
 }
 
+/* Site Introduction*/
+.site-introduction {
+  background-color: #0f0f0f;
+  color: white;
+}
+
+.movie-library {
+  display: flex;
+  justify-content:left;
+  flex-direction: column;
+  width: 50vw;
+  padding-left: 50px;
+}
+
+.movie-library p {
+  color: white;
+  font-size: 14px;
+  font-weight:100;
+}
+
+@media screen and (max-width: 440px) {
+
+  .movie-library {
+    display: flex;
+    justify-content:left;
+    flex-direction: column;
+    width: 50vw;
+    padding-left: 20px;
+  }
+}  
+
+@media screen and (max-width: 820px) {
+
+  .movie-library {
+    display: flex;
+    justify-content:left;
+    flex-direction: column;
+    width: 70vw;
+    padding-left: 30px;
+  }
+}
