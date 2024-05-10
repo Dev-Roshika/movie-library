@@ -6,6 +6,10 @@
     <title>Movie Selection Site</title>
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -32,47 +36,248 @@
       </a>
     </div>
     <div class="slideshow-container">
-      <div class="mySlides fade">
+      <div class="mySlides">
         <div class="numbertext">1 / 4</div>
-        <img src="img/banner1.jpeg" style="width: 100%;" />
-        <div class="text">Caption One</div>
+        <img src="img/banner1.jpeg" style="width: 100%" />
+        <!-- <div class="text">Caption One</div> -->
       </div>
 
-      <div class="mySlides fade">
+      <div class="mySlides">
         <div class="numbertext">2 / 4</div>
         <img src="img/banner2.jpg" style="width: 100%" />
-        <div class="text">Caption Two</div>
+        <!-- <div class="text">Caption Two</div> -->
       </div>
 
-      <div class="mySlides fade">
+      <div class="mySlides">
         <div class="numbertext">3 / 4</div>
         <img src="img/banner3.jpg" style="width: 100%" />
-        <div class="text">Caption Three</div>
+        <!-- <div class="text">Caption Three</div> -->
       </div>
 
-      <div class="mySlides fade">
+      <div class="mySlides">
         <div class="numbertext">4 / 4</div>
         <img src="img/banner4.jpg" style="width: 100%" />
-        <div class="text">Caption Four</div>
+        <!-- <div class="text">Caption Four</div> -->
       </div>
     </div>
-    <br />
 
-    <div style="text-align: center">
+    <div style="text-align: center; background-color: #0f0f0f">
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
-    <br />
+
     <div class="site-introduction">
-    <div class = "movie-library">
-      <h1 >MOVIE LIBRARY</h1>
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
-        sed diam nonumy eirmod tempor invidunt ut labore et  
-        dolore magna aliquyam erat, sed diam voluptua. </p>
+      <div class="movie-library">
+        <h1>MOVIE LIBRARY</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua.
+        </p>
+      </div>
     </div>
-  </div>
+    <div id="app">
+      <div class="collect-fav">
+        <div class="collect-fav content">
+          <div class="fav-title">
+            <h3>Collect your favourites</h3>
+          </div>
+          <div class="fav-search" style="position: relative">
+            <i
+              class="fa fa-search"
+              style="color: white; position: absolute; left: 10px; top: 8px"
+            ></i>
+            <input
+              type="text"
+              v-model="searchQuery"
+              @input="searchMovies"
+              style="width: 30vw; height: 20px"
+              placeholder="          Search title and add to grid"
+            />
+          </div>
+        </div>
+        <div>
+          <hr style="margin-top: 5px; border-color: white" />
+        </div>
+      </div>
+
+      <div class="grid" v-if="searchQuery">
+        <div v-for="movie in filteredMovies" :key="movie.id" class="movie-card">
+          <img :src="movie.image.medium" :alt="movie.name" />
+          <div class="movie-card-details">
+            <h3>{{ movie.name }}</h3>
+            <!-- <p>{{ movie.summary }}</p> -->
+            <div v-html="removePTags(movie.summary)"></div>
+          </div>
+          <button @click="addToSelection(movie)">Add to Favourites</button>
+        </div>
+      </div>
+
+      <!-- Selected movies grid -->
+      <div class="grid">
+        <div
+          v-for="selectedMovie in selectedMovies"
+          :key="selectedMovie.id"
+          class="movie-card"
+          style="position: relative"
+        >
+          <button class="btn-close" @click="removeFromSelection(selectedMovie)">
+            &times;
+          </button>
+          <!-- <button class="btn-close">&times;</button> -->
+          <img :src="selectedMovie.image.medium" :alt="selectedMovie.name" />
+          <div class="movie-card-details">
+            <h3>{{ selectedMovie.name }}</h3>
+            <!-- <p>{{ selectedMovie.summary }}</p> -->
+            <div
+              v-html="removePTags(selectedMovie.summary)"
+              class="movie-summary"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-us-container">
+      <div class="contact-us">
+        <div>
+          <h3>How to reach us</h3>
+          <p>Lorem ipsum dolor sit amet, consetetur.</p>
+        </div>
+        <div class="container">
+          <form action="/action_page.php">
+            <div class="row">
+              <div>
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" name="firstname" />
+              </div>
+              <div>
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" name="lastname" />
+              </div>
+            </div>
+
+            <label for="email">Email *</label>
+            <input type="text" id="email" name="email" />
+
+            <label for="mobile">Telephone</label>
+            <input type="tel" id="mobile" name="mobile" />
+
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              style="height: 200px"
+            ></textarea>
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+      <div class="google-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3638.376725264747!2d-122.08376078492411!3d37.4222489798884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808580f9febbc1e3%3A0x30c4146b457c1b9e!2sGoogleplex!5e0!3m2!1sen!2sus!4v1629797298411!5m2!1sen!2sus"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+    <div class="contact-us-container-gap"></div>
+
+    <section class="footer">
+      <div class="footer-row">
+        <div class="footer-col">
+          <h4 style="font-size: 16px; font-weight: bold">IT Group</h4>
+          <div class="add">
+            <p>C. Salvador de Madariaga, 1</p>
+            <p>28027 Madrid</p>
+            <p>Spain</p>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="icons">
+            <p style="color: white">Follow us on</p>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-youtube"></i>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="footer-row"
+        style="display: flex; justify-content: space-around"
+      >
+        <div class="footer-col">
+          <p style="color: #b7b7b7; font-size: 14px">Company Name © 2018</p>
+        </div>
+        <div class="footer-col" style="display: flex; align-items: center;">
+          <p style="color: #b7b7b7; font-size: 14px">
+            Photos by Felix Mooneeram & 
+            <a href="#">Serge Kutuzov</a> 
+            on 
+            <a href="#">Unsplash</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          movies: [],
+          selectedMovies: [],
+          searchQuery: "",
+        },
+        mounted() {
+          // Fetch data from TV/movies database API
+          axios
+            .get("https://api.tvmaze.com/shows/1/episodes")
+            .then((response) => {
+              this.movies = response.data;
+              console.log(this.movies);
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+        },
+        computed: {
+          // Filter movies based on search query
+          filteredMovies() {
+            return this.movies.filter((movie) =>
+              movie.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+          },
+        },
+        methods: {
+          // Add movie to selection
+          addToSelection(movie) {
+            this.selectedMovies.push(movie);
+            this.searchQuery = "";
+          },
+          // Remove movie from selection
+          removeFromSelection(movie) {
+            this.selectedMovies = this.selectedMovies.filter(
+              (selectedMovie) => selectedMovie.id !== movie.id
+            );
+          },
+          // Search movies based on input query
+          searchMovies() {
+            // Make an API call for searching movies (if needed)
+            // For demonstration purpose, we are filtering movies locally
+          },
+          removePTags(summary) {
+            // Use a regular expression to remove <p> tags from the summary
+            return summary.replace(/<p>/g, "").replace(/<\/p>/g, "");
+          },
+        },
+      });
+    </script>
     <script>
       function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -102,7 +307,7 @@
         }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 4000); 
+        setTimeout(showSlides, 4000);
       }
     </script>
   </body>
