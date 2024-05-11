@@ -200,18 +200,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="lname">Last Name *</label>
               <input type="text" id="lname" name="lastname" required />
               <span id="lnameError" class="error"></span>
-
             </div>
           </div>
 
           <label for="email">Email *</label>
           <input type="email" id="email" name="email" required />
           <span id="emailError" class="error"></span>
-
           <label for="mobile">Telephone</label>
           <input type="tel" id="mobile" name="mobile" />
           <span id="mobileError" class="error"></span>
-
           <label for="message">Message</label>
           <textarea id="message" name="message" style="height: 200px"></textarea>
 
