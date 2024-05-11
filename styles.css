@@ -3,6 +3,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.error{
+  color: red;
+}
 /* Header */
 
 .topnav {
@@ -145,16 +148,6 @@ body {
   padding: 8px 12px;
   position: absolute;
 }
-
-/* .text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 4px;
-  width: 100%;
-  text-align: center;
-} */
 
 /* The dots/bullets/indicators */
 .dot {
@@ -339,6 +332,7 @@ button:hover {
   padding-top: 10px;
 }
 .contact-us .container input[type="text"],
+.contact-us .container input[type="email"],
 .contact-us .container input[type="tel"],
 select,
 textarea {
